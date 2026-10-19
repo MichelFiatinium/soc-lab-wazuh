@@ -1,0 +1,89 @@
+<!--
+  Règles personnalisées — SOC Lab
+  Fichier à déposer sur le manager : /var/ossec/etc/rules/local_rules.xml
+
+  ⚠️ CE FICHIER EST UN SQUELETTE, PAS UNE SOLUTION.
+
+  Les blocs ci-dessous sont commentés volontairement. Tu dois :
+    1. Identifier les IDs de règles parentes RÉELS de ta version
+       (sur le manager : /var/ossec/ruleset/rules/ ; ou via le dashboard,
+       onglet Management > Rules, en filtrant par groupe)
+    2. Tester chaque règle avec /var/ossec/bin/wazuh-logtest
+    3. Ajuster les seuils à partir de CE QUE TU OBSERVES, pas de ce qui est écrit ici
+    4. Écrire la justification de chaque seuil dans le README
+
+  Les IDs personnalisés doivent être >= 100000.
+  N'active une règle qu'après l'avoir testée : une règle non testée qui ne se
+  déclenche jamais est pire qu'une absence de règle.
+-->
+
+<group name="local,soclab,">
+
+  <!--
+    ══════════════════════════════════════════════════════════════
+    RÈGLE 1 — Échecs d'authentification répétés depuis une source
+    ══════════════════════════════════════════════════════════════
+
+    À déterminer par toi :
+      - if_matched_sid : l'ID de la règle parente "authentication failed"
+        de ta version (NE L'INVENTE PAS, va le lire)
+      - frequency      : combien d'échecs avant alerte
+      - timeframe      : sur quelle fenêtre, en secondes
+      - level          : la criticité que TU juges juste
+
+    Questions à te poser avant de fixer frequency/timeframe :
+      - Combien d'échecs légitimes observes-tu en 24 h sur ton lab ?
+      - Un utilisateur qui se trompe de mot de passe, combien de fois ?
+      - Veux-tu alerter sur l'échec, ou sur l'échec SUIVI D'UN SUCCÈS ?
+
+  <rule id="100001" level="10" frequency="8" timeframe="120">
+    <if_matched_sid>XXXXX</if_matched_sid>
+    <same_source_ip />
+    <description>Échecs d'authentification répétés depuis la même source IP</description>
+    <mitre>
+      <id>T1110</id>
+    </mitre>
+  </rule>
+  -->
+
+
+  <!--
+    ══════════════════════════════════════════════════════════════
+    RÈGLE 2 — Succès après une série d'échecs
+    ══════════════════════════════════════════════════════════════
+
+    Souvent plus intéressante que la règle 1 : un brute force réussi.
+    C'est le genre de règle qui montre que tu penses en analyste et pas
+    en installateur.
+  -->
+
+
+  <!--
+    ══════════════════════════════════════════════════════════════
+    RÈGLE 3 — Réduction du bruit Windows
+    ══════════════════════════════════════════════════════════════
+
+    C'est TA règle signature, celle dont tu as parlé au recruteur.
+
+    Deux approches possibles — choisis et justifie :
+      a) <rule ... level="0"> pour faire taire un cas précis
+      b) relever le seuil / restreindre le champ de la règle d'origine
+
+    Documente dans le README :
+      - quel événement exact faisait du bruit
+      - pourquoi il était légitime
+      - ce que tu as fait
+      - ce que tu as accepté de perdre en visibilité (il y a toujours un coût)
+
+    Cette dernière ligne est celle qui distingue un junior qui comprend
+    d'un junior qui applique.
+  -->
+
+
+  <!--
+    ══════════════════════════════════════════════════════════════
+    RÈGLE 4 — Création ou élévation de compte
+    ══════════════════════════════════════════════════════════════
+  -->
+
+</group>

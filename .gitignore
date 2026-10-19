@@ -1,0 +1,17 @@
+# Certificats et secrets — ne JAMAIS committer
+config/wazuh_indexer_ssl_certs/
+*.pem
+*.key
+*.crt
+.env
+
+# Données locales
+data/
+*.log
+
+# Captures brutes non anonymisées
+screenshots/raw/
+
+# OS
+.DS_Store
+Thumbs.db
